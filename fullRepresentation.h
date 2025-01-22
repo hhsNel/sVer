@@ -11,6 +11,12 @@ struct fullRepresentation {
 
 #define FR_ESCAPE_CHAR '\0'
 
+/*
+ $f (void) (insertCharToBuffer)
+ $a (char) (c) (char to be inserted)
+ $a (char *) (buffer) (buffer to be inserted into)
+ $a (size_t *) (index) (position after the last character)
+*/
 inline void insertCharToBuffer(char c, char *buffer, size_t *index) {
 #define BUFFER_SIZE 64
 	if(*index % BUFFER_SIZE == 0) {
@@ -21,6 +27,11 @@ inline void insertCharToBuffer(char c, char *buffer, size_t *index) {
 #undef BUFFER_SIZE
 }
 
+/*
+ $f (fullRepresentation) (generateFullRepresentation)
+ $a (FILE *) (fin) (file to be converted)
+ $m (generates a full representation from a text file)
+*/
 fullRepresentation generateFullRepresentation(FILE* fin) {
 	char c = '\0';
 	char *buffer = NULL;
@@ -50,6 +61,11 @@ fullRepresentation generateFullRepresentation(FILE* fin) {
 	return fr;
 }
 
+/*
+ $f (void) (saveFullRepresentation)
+ $a (fullRepresentation) (fr) (representation to be saved)
+ $a (FILE *) (fout) (where to write to)
+*/
 void saveFullRepresentation(fullRepresentation fr, FILE* fout) {
 	uint64_t i;
 	for(i = 0; i < fr.linesNr; ++i) {
