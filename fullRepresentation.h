@@ -6,6 +6,8 @@ struct fullRepresentation {
 	uint64_t linesNr;
 }
 
+#define FR_ESCAPE_CHAR '\0'
+
 inline void insertCharToBuffer(char c, char *buffer, size_t *index) {
 #define BUFFER_SIZE 64
 	if(*index % BUFFER_SIZE == 0) {
@@ -43,6 +45,20 @@ fullRepresentation generateFullRepresentation(FILE* fin) {
 	fr.lines = lines;
 	fr.linesNr = lineIndex-1;
 	return fr;
+}
+
+void saveFullRepresentation(fullRepresentation fr, FILE* fout) {
+	uint64_t i;
+	for(i = 0; i < fr.linesNr; ++i) {
+		char *iter;
+		for(iter = fr.lines[i]; *iter != '\0'; ++iter) {
+			fputc(*iter, fout);
+		}
+		fputc(FR_ESCAPE_CHAR, fout);
+		fputc(FR_ESCAPE_CHAR, fout);
+	}
+	fputc(FR_ESCAPE_CHAR, fout);
+	fputc(FR_ESCAPE_CHAR+1, fout);
 }
 
 #endif
