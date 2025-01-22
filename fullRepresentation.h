@@ -1,6 +1,9 @@
 #ifndef FULL_REPRESENTATION_H
 #define FULL_REPRESENTATION_H
 
+/*
+ $m (full representation - a representation of the file fully containg it)
+*/
 struct fullRepresentation {
 	char **lines;
 	uint64_t linesNr;
